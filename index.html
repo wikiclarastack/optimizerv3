@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fluxz | OS Performance & Control</title>
+    <title>Fluxz | OS Performance</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
@@ -16,24 +16,21 @@
 
     <nav class="fixed w-full z-50 p-6 glass-nav flex justify-between items-center border-b border-white/5">
         <div class="text-2xl font-black italic tracking-tighter uppercase">FLUXZ<span class="text-cyan-500">.</span></div>
-        <div id="nav-actions">
-            <button onclick="router('login')" class="bg-white/5 hover:bg-cyan-500 hover:text-black px-6 py-2 rounded-full border border-white/10 transition-all text-[10px] font-black uppercase tracking-[0.2em]">Restricted Access</button>
-        </div>
+        <button onclick="router('login')" class="bg-white/5 hover:bg-cyan-500 hover:text-black px-6 py-2 rounded-full border border-white/10 transition-all text-[10px] font-black uppercase tracking-[0.2em]">Restricted Access</button>
     </nav>
 
     <section id="home-page" class="min-h-screen flex flex-col justify-center items-center text-center px-6 reveal">
-        <h1 class="text-7xl md:text-9xl font-black mb-6 tracking-tighter italic uppercase leading-none">Limitless <br><span class="gradient-text">Power.</span></h1>
-        <p class="text-gray-500 max-w-xl mb-10 text-sm tracking-widest uppercase">The ultimate kernel-level optimization for competitive gaming.</p>
-        <button onclick="router('login')" class="bg-white text-black px-12 py-5 rounded-2xl font-black text-xl hover:shadow-[0_0_50px_rgba(6,182,212,0.3)] transition-all active:scale-95">GET STARTED</button>
+        <h1 class="text-7xl md:text-9xl font-black mb-6 tracking-tighter italic uppercase">Limitless <br><span class="text-cyan-500">Power.</span></h1>
+        <button onclick="router('login')" class="bg-white text-black px-12 py-5 rounded-2xl font-black text-xl hover:scale-105 transition-all">GET STARTED</button>
     </section>
 
     <section id="login-page" class="min-h-screen flex items-center justify-center px-6 hidden">
-        <div class="w-full max-w-md glass p-10 rounded-[40px] border border-white/10 shadow-2xl reveal relative">
+        <div class="w-full max-w-md glass p-10 rounded-[40px] border border-white/10 shadow-2xl reveal">
             <h2 class="text-3xl font-black mb-8 text-center italic uppercase tracking-tighter">Auth Center</h2>
             <form id="loginForm" class="space-y-4">
-                <input type="email" id="email" placeholder="E-mail" class="w-full p-5 bg-white/5 border border-white/10 rounded-2xl focus:border-cyan-500 outline-none transition-all font-mono text-sm" required>
-                <input type="password" id="password" placeholder="Senha" class="w-full p-5 bg-white/5 border border-white/10 rounded-2xl focus:border-cyan-500 outline-none transition-all font-mono text-sm" required>
-                <button type="submit" class="w-full bg-cyan-500 hover:bg-cyan-400 text-black py-5 rounded-2xl font-black uppercase tracking-widest shadow-lg active:scale-95 transition-all">Identify</button>
+                <input type="email" id="email" placeholder="E-mail" class="w-full p-5 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-cyan-500 transition-all font-mono text-sm" required>
+                <input type="password" id="password" placeholder="Senha" class="w-full p-5 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-cyan-500 transition-all font-mono text-sm" required>
+                <button type="submit" class="w-full bg-cyan-500 text-black py-5 rounded-2xl font-black uppercase tracking-widest shadow-lg">Identify</button>
                 <button type="button" onclick="router('home')" class="w-full text-gray-600 text-[10px] hover:text-white mt-4 uppercase tracking-[0.3em]">Abort Mission</button>
             </form>
         </div>
@@ -42,31 +39,27 @@
     <section id="dashboard-page" class="min-h-screen p-6 pt-32 hidden">
         <div class="max-w-6xl mx-auto">
             
-            <div id="admin-master-panel" class="hidden mb-16 p-10 bg-red-600/5 border border-red-500/20 rounded-[40px] reveal overflow-hidden relative">
-                <div class="absolute top-0 right-0 p-8 opacity-10"><i data-lucide="shield-alert" size="120"></i></div>
-                <h2 class="text-2xl font-black text-red-500 mb-8 italic flex items-center gap-3 uppercase tracking-tighter">
-                    <i data-lucide="terminal"></i> Root Control Center
-                </h2>
+            <div id="admin-master-panel" class="hidden mb-16 p-10 bg-red-600/5 border border-red-500/20 rounded-[40px] reveal relative">
+                <h2 class="text-2xl font-black text-red-500 mb-8 italic uppercase tracking-tighter">Root Control</h2>
                 
-                <div class="grid lg:grid-cols-3 gap-8">
-                    <div class="space-y-6">
-                        <div class="p-6 bg-black/40 rounded-3xl border border-white/5">
-                            <h3 class="text-[10px] font-bold text-gray-500 uppercase mb-4 tracking-widest">Global Config</h3>
-                            <input type="text" id="new-dl-link" placeholder="New .EXE Direct URL" class="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-xs mb-3">
-                            <button onclick="updateDownloadLink()" class="w-full bg-white text-black py-3 rounded-xl font-black text-[10px] uppercase">Update Download</button>
-                        </div>
-                        <div class="p-6 bg-black/40 rounded-3xl border border-white/5">
-                            <h3 class="text-[10px] font-bold text-gray-500 uppercase mb-4 tracking-widest">Active Presence</h3>
-                            <div id="online-list" class="space-y-2 max-h-32 overflow-y-auto font-mono text-[9px] text-cyan-400"></div>
-                        </div>
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="p-6 bg-black/40 rounded-3xl border border-white/5">
+                        <h3 class="text-[10px] font-bold text-gray-500 uppercase mb-4 tracking-widest">Register New Client</h3>
+                        <form id="createClientForm" class="space-y-3">
+                            <input type="email" id="new-client-email" placeholder="Client Email" class="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-xs outline-none focus:border-cyan-500" required>
+                            <input type="text" id="new-client-password" placeholder="Password" class="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-xs outline-none focus:border-cyan-500" required>
+                            <button type="submit" class="w-full bg-cyan-600 py-3 rounded-xl font-black text-[10px] uppercase">Create Account</button>
+                        </form>
                     </div>
 
-                    <div class="lg:col-span-2 p-6 bg-black/40 rounded-3xl border border-white/5">
-                        <h3 class="text-[10px] font-bold text-gray-500 uppercase mb-4 tracking-widest">Publish New Version</h3>
-                        <form id="adminUpdateForm" class="space-y-4">
-                            <input type="text" id="version" placeholder="Version Tag (e.g. v2.5.0)" class="w-full p-4 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-red-500 text-sm">
-                            <textarea id="changelog" placeholder="Changelog details..." class="w-full p-4 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-red-500 text-sm resize-none" rows="3"></textarea>
-                            <button type="submit" class="w-full bg-red-600 py-4 rounded-xl font-black uppercase text-xs tracking-widest">Broadcast Update</button>
+                    <div class="p-6 bg-black/40 rounded-3xl border border-white/5">
+                        <h3 class="text-[10px] font-bold text-gray-500 uppercase mb-4 tracking-widest">System Control</h3>
+                        <input type="text" id="new-dl-link" placeholder="New .EXE URL" class="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-xs mb-3">
+                        <button onclick="updateDownloadLink()" class="w-full bg-white text-black py-3 rounded-xl font-black text-[10px] uppercase mb-4">Set Download</button>
+                        <form id="adminUpdateForm" class="space-y-2">
+                            <input type="text" id="version" placeholder="Version (ex: v2.5)" class="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-xs">
+                            <textarea id="changelog" placeholder="Notes..." class="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-xs resize-none"></textarea>
+                            <button type="submit" class="w-full bg-red-600 py-3 rounded-xl font-black text-[10px] uppercase">Post Update</button>
                         </form>
                     </div>
                 </div>
@@ -74,52 +67,27 @@
 
             <header class="flex justify-between items-end mb-16">
                 <div>
-                    <h2 class="text-5xl font-black italic tracking-tighter uppercase reveal">Control Panel</h2>
-                    <p class="text-cyan-500 font-mono text-[10px] mt-2 uppercase tracking-[0.3em] opacity-80" id="display-user"></p>
+                    <h2 class="text-5xl font-black italic tracking-tighter uppercase">Panel</h2>
+                    <p class="text-cyan-500 font-mono text-[10px] mt-2 uppercase" id="display-user"></p>
                 </div>
-                <button onclick="logout()" class="p-4 bg-red-500/10 text-red-500 rounded-2xl border border-red-500/10 hover:bg-red-500 hover:text-white transition-all">
-                    <i data-lucide="power"></i>
-                </button>
+                <button onclick="logout()" class="p-4 bg-red-500/10 text-red-500 rounded-2xl border border-red-500/10 hover:bg-red-500 hover:text-white transition-all"><i data-lucide="power"></i></button>
             </header>
 
             <div class="grid lg:grid-cols-3 gap-10">
                 <div class="lg:col-span-2 space-y-10">
-                    <div class="p-1 bg-gradient-to-r from-cyan-600 to-blue-900 rounded-[40px] reveal">
-                        <div class="bg-[#080808] p-10 rounded-[38px] flex flex-col md:flex-row justify-between items-center gap-6">
-                            <div>
-                                <h3 class="text-3xl font-black italic tracking-tighter mb-1 uppercase">Fluxz Pro Engine</h3>
-                                <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">Advanced Kernel Optimization</p>
-                            </div>
-                            <a id="main-download-btn" href="#" class="bg-white text-black px-12 py-5 rounded-2xl font-black hover:bg-cyan-400 transition-all uppercase italic shadow-xl shadow-cyan-500/10">Download</a>
+                    <div class="bg-[#080808] p-10 rounded-[38px] border border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+                        <div>
+                            <h3 class="text-3xl font-black italic tracking-tighter mb-1 uppercase">Fluxz Pro Engine</h3>
+                            <p class="text-gray-500 text-[10px] font-bold uppercase">Ready for optimization</p>
                         </div>
+                        <a id="main-download-btn" href="#" class="bg-white text-black px-12 py-5 rounded-2xl font-black hover:bg-cyan-400 transition-all uppercase italic">Download</a>
                     </div>
-                    
-                    <div class="p-10 glass rounded-[40px] reveal border border-white/5">
-                        <h3 class="text-xl font-black mb-8 italic uppercase tracking-tighter flex items-center gap-2">
-                            <i data-lucide="history" class="text-cyan-500"></i> Version History
-                        </h3>
-                        <div id="updatesContainer" class="space-y-8"></div>
-                    </div>
+                    <div id="updatesContainer" class="p-10 glass rounded-[40px] border border-white/5 space-y-6"></div>
                 </div>
-
-                <div class="space-y-8 reveal">
-                    <div class="glass p-8 rounded-[40px] border border-cyan-500/10">
-                        <h4 class="text-[10px] font-black text-gray-500 uppercase mb-6 tracking-[0.3em]">System Health</h4>
-                        <div class="space-y-4 font-mono text-xs">
-                            <div class="flex justify-between items-center py-2 border-b border-white/5"><span>License</span><span class="text-green-400 font-bold">LIFETIME</span></div>
-                            <div class="flex justify-between items-center py-2 border-b border-white/5"><span>Protection</span><span class="text-white">Active</span></div>
-                            <div class="flex justify-between items-center py-2"><span>Network</span><span class="text-cyan-500">Encrypted</span></div>
-                        </div>
-                    </div>
-
-                    <div class="glass p-8 rounded-[40px] border border-white/5 bg-white/[0.01]">
-                        <h4 class="text-[10px] font-black text-purple-500 uppercase mb-4 tracking-[0.3em]">Live Support</h4>
-                        <div id="chat-box" class="h-48 overflow-y-auto mb-4 space-y-2 p-2 font-mono text-[10px] scrollbar-hide"></div>
-                        <div class="flex gap-2">
-                            <input type="text" id="chat-input" placeholder="Type message..." class="flex-1 bg-white/5 border border-white/10 rounded-xl p-3 text-xs outline-none focus:border-purple-500">
-                            <button onclick="sendChatMessage()" class="bg-purple-600 p-3 rounded-xl hover:bg-purple-500 transition-all"><i data-lucide="send" size="16"></i></button>
-                        </div>
-                    </div>
+                
+                <div class="glass p-8 rounded-[40px] border border-white/5 h-fit">
+                    <h4 class="text-[10px] font-black text-gray-500 uppercase mb-6">Online Now</h4>
+                    <div id="online-list" class="space-y-2 text-[10px] font-mono text-cyan-400"></div>
                 </div>
             </div>
         </div>

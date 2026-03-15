@@ -1,10 +1,7 @@
 const SB_URL = "https://ohozsfqsocwjpwoioqef.supabase.co";
 const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9ob3pzZnFzb2N3anB3b2lvcWVmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1OTYxNTIsImV4cCI6MjA4OTE3MjE1Mn0.Of-dTDu17P62PK24kTn4IQfqNjUJLvmpisw481e-Yoc";
 
-let _supabase;
-if (SB_URL !== "https://ohozsfqsocwjpwoioqef.supabase.co") {
-    _supabase = supabase.createClient(SB_URL, SB_KEY);
-}
+const _supabase = supabase.createClient(SB_URL, SB_KEY);
 
 lucide.createIcons();
 
@@ -29,7 +26,6 @@ function router(page) {
 
 document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (!_supabase) return notify("Erro: Configure o Supabase na Vercel", "#ff4444");
 
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;

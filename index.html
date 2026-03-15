@@ -14,88 +14,75 @@
 </head>
 <body class="bg-[#050505] text-white">
 
-    <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-[-1]">
-        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-cyan-900/20 blur-[120px] rounded-full"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-900/20 blur-[120px] rounded-full"></div>
-    </div>
-
     <nav class="fixed w-full z-50 p-6 glass-nav flex justify-between items-center border-b border-white/5">
-        <div class="text-2xl font-black italic tracking-tighter tracking-widest">FLUXZ<span class="text-cyan-400">.</span></div>
-        <button onclick="router('login')" class="group relative px-6 py-2 font-bold text-sm uppercase tracking-widest overflow-hidden rounded-full border border-cyan-500/50">
-            <span class="relative z-10 group-hover:text-black transition-colors">Acesso</span>
-            <div class="absolute inset-0 bg-cyan-400 translate-y-[101%] group-hover:translate-y-0 transition-transform duration-300"></div>
-        </button>
+        <div class="text-2xl font-black italic tracking-tighter uppercase">FLUXZ<span class="text-cyan-500">.</span></div>
+        <div id="nav-actions">
+            <button onclick="router('login')" class="bg-white/5 hover:bg-cyan-500 hover:text-black px-6 py-2 rounded-full border border-white/10 transition-all text-xs font-bold uppercase tracking-widest">Portal</button>
+        </div>
     </nav>
 
-    <section id="home-page" class="reveal min-h-screen flex flex-col justify-center items-center text-center px-6">
-        <h1 class="text-7xl md:text-9xl font-black mb-6 tracking-tighter leading-none italic uppercase">
-            Faster <br><span class="gradient-text animate-pulse">Than Light.</span>
-        </h1>
-        <p class="text-gray-500 max-w-2xl mb-10 text-lg font-light tracking-wide">
-            Otimização de latência ultra-baixa. O Fluxz reconecta seu hardware ao seu reflexo.
-        </p>
-        <button onclick="router('login')" class="bg-white text-black px-12 py-5 rounded-2xl font-black text-xl hover:shadow-[0_0_50px_rgba(6,182,212,0.4)] transition-all transform hover:-translate-y-1 active:scale-95">
-            DOWNLOAD PRO
-        </button>
+    <section id="home-page" class="min-h-screen flex flex-col justify-center items-center text-center px-6">
+        <h1 class="text-7xl md:text-9xl font-black mb-6 tracking-tighter leading-none italic uppercase reveal">Optimizator <br><span class="gradient-text">Engine.</span></h1>
+        <button onclick="router('login')" class="bg-cyan-500 text-black px-12 py-5 rounded-2xl font-black text-xl hover:scale-105 transition-all shadow-cyan reveal">ACESSAR SISTEMA</button>
     </section>
 
     <section id="login-page" class="min-h-screen flex items-center justify-center px-6 hidden">
-        <div class="w-full max-w-md glass p-10 rounded-[40px] border border-white/10 shadow-2xl relative">
-            <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-20 h-20 bg-cyan-500 rounded-3xl rotate-12 flex items-center justify-center shadow-lg shadow-cyan-500/50">
-                <i data-lucide="shield-check" class="text-black w-10 h-10"></i>
-            </div>
-            <h2 class="text-3xl font-black mb-8 mt-6 text-center italic uppercase tracking-tighter">Login</h2>
+        <div class="w-full max-w-md glass p-10 rounded-[40px] border border-white/10 shadow-2xl reveal">
+            <h2 class="text-3xl font-black mb-8 text-center italic uppercase tracking-tighter">Login</h2>
             <form id="loginForm" class="space-y-4">
-                <input type="email" id="email" placeholder="E-mail" class="w-full p-5 bg-white/5 border border-white/10 rounded-2xl focus:border-cyan-500 outline-none transition-all placeholder:text-gray-600 font-mono" required>
-                <input type="password" id="password" placeholder="Senha" class="w-full p-5 bg-white/5 border border-white/10 rounded-2xl focus:border-cyan-500 outline-none transition-all placeholder:text-gray-600 font-mono" required>
-                <button type="submit" class="w-full bg-cyan-500 hover:bg-cyan-400 text-black py-5 rounded-2xl font-black text-lg transition-all uppercase tracking-widest shadow-lg">Entrar no Sistema</button>
-                <button type="button" onclick="router('home')" class="w-full text-gray-500 text-xs hover:text-white transition-colors uppercase tracking-[0.2em] pt-4">Cancelar</button>
+                <input type="email" id="email" placeholder="E-mail" class="w-full p-5 bg-white/5 border border-white/10 rounded-2xl focus:border-cyan-500 outline-none transition-all font-mono" required>
+                <input type="password" id="password" placeholder="Senha" class="w-full p-5 bg-white/5 border border-white/10 rounded-2xl focus:border-cyan-500 outline-none transition-all font-mono" required>
+                <button type="submit" class="w-full bg-cyan-500 hover:bg-cyan-400 text-black py-5 rounded-2xl font-black uppercase tracking-widest shadow-lg">Entrar</button>
+                <button type="button" onclick="router('home')" class="w-full text-gray-500 text-xs hover:text-white mt-4 uppercase tracking-[0.2em]">Voltar</button>
             </form>
         </div>
     </section>
 
     <section id="dashboard-page" class="min-h-screen p-6 pt-32 hidden">
         <div class="max-w-6xl mx-auto">
+            
+            <div id="admin-tools" class="hidden mb-12 p-8 glass-admin border border-red-500/20 rounded-[40px] reveal">
+                <h3 class="text-red-500 font-black italic mb-6 flex items-center gap-2 uppercase tracking-tighter">
+                    <i data-lucide="shield-alert"></i> Painel de Administração
+                </h3>
+                <form id="adminUpdateForm" class="grid md:grid-cols-3 gap-4">
+                    <input type="text" id="version" placeholder="Versão (ex: v2.5)" class="p-4 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-red-500" required>
+                    <input type="text" id="changelog" placeholder="O que mudou?" class="md:col-span-2 p-4 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-red-500" required>
+                    <button type="submit" class="md:col-span-3 bg-red-600 hover:bg-red-500 py-4 rounded-xl font-black uppercase tracking-widest transition-all">Publicar Update Agora</button>
+                </form>
+            </div>
+
             <header class="flex justify-between items-center mb-16">
-                <div class="reveal-left">
+                <div class="reveal">
                     <h2 class="text-5xl font-black italic tracking-tighter uppercase">Dashboard</h2>
-                    <p class="text-cyan-400 font-mono text-xs mt-2 tracking-widest opacity-70">SESSÃO AUTENTICADA // <span id="display-user"></span></p>
+                    <p class="text-cyan-400 font-mono text-xs mt-2 uppercase tracking-widest opacity-70" id="display-user"></p>
                 </div>
-                <button onclick="logout()" class="p-3 bg-red-500/10 text-red-500 rounded-2xl border border-red-500/20 hover:bg-red-500 hover:text-white transition-all">
-                    <i data-lucide="log-out" size="20"></i>
+                <button onclick="logout()" class="p-4 bg-red-500/10 text-red-500 rounded-2xl hover:bg-red-500 hover:text-white transition-all">
+                    <i data-lucide="log-out"></i>
                 </button>
             </header>
 
             <div class="grid lg:grid-cols-3 gap-10">
                 <div class="lg:col-span-2 space-y-10">
-                    <div class="reveal-bottom p-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-[40px] shadow-2xl">
+                    <div class="p-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-[40px] reveal">
                         <div class="bg-[#0a0a0a] p-10 rounded-[38px] flex flex-col md:flex-row justify-between items-center gap-6">
-                            <div class="text-center md:text-left">
-                                <h3 class="text-3xl font-black mb-2 italic">FLUXZ PRO ENGINE</h3>
-                                <p class="text-gray-400 text-sm font-light">Build Estável: <span class="text-white font-bold">v2.4.1</span></p>
-                            </div>
-                            <button id="dl-btn" class="group flex items-center gap-4 bg-white text-black px-10 py-5 rounded-2xl font-black hover:scale-105 transition-all active:scale-95 shadow-xl shadow-cyan-500/20">
-                                <i data-lucide="cpu" class="group-hover:rotate-180 transition-transform duration-500"></i> BAIXAR AGORA
-                            </button>
+                            <h3 class="text-2xl font-black italic">FLUXZ PRO ENGINE</h3>
+                            <button class="bg-white text-black px-10 py-5 rounded-2xl font-black hover:bg-cyan-400 transition-all uppercase italic">Download v2.4.1</button>
                         </div>
                     </div>
                     
-                    <div class="reveal-bottom p-8 glass rounded-[40px] border border-white/5">
-                        <div class="flex items-center gap-3 mb-8">
-                            <i data-lucide="terminal" class="text-cyan-400"></i>
-                            <h3 class="text-xl font-bold italic uppercase tracking-tighter underline decoration-cyan-500 underline-offset-8">Patch Notes</h3>
-                        </div>
-                        <div id="updatesContainer" class="space-y-8">
-                        </div>
+                    <div class="p-8 glass rounded-[40px] reveal">
+                        <h3 class="text-xl font-bold mb-8 italic uppercase tracking-tighter underline decoration-cyan-500 underline-offset-8">Patch Notes</h3>
+                        <div id="updatesContainer" class="space-y-6"></div>
                     </div>
                 </div>
 
-                <div class="reveal-right space-y-8">
+                <div class="space-y-8 reveal">
                     <div class="glass p-8 rounded-[40px] border border-cyan-500/10">
-                        <h4 class="text-[10px] font-bold text-cyan-500 uppercase mb-6 tracking-[0.3em]">System</h4>
-                        <div class="space-y-6">
-                            <div class="flex justify-between items-center"><span class="text-gray-500 text-sm">Licença</span><span class="px-3 py-1 bg-green-500/10 text-green-400 text-[10px] font-bold border border-green-500/20 rounded-full">ATIVADA</span></div>
-                            <div class="flex justify-between items-center"><span class="text-gray-500 text-sm">Servidores</span><span class="text-cyan-400 font-mono text-xs">STABLE</span></div>
+                        <h4 class="text-[10px] font-bold text-gray-500 uppercase mb-6 tracking-[0.3em]">Status</h4>
+                        <div class="space-y-4 text-sm">
+                            <div class="flex justify-between"><span>Licença</span><span class="text-green-400">ATIVADA</span></div>
+                            <div class="flex justify-between"><span>Servidor</span><span class="text-cyan-400">ONLINE</span></div>
                         </div>
                     </div>
                 </div>

@@ -10,15 +10,24 @@ function notify(text, color = "#06b6d4") {
         duration: 3000,
         gravity: "bottom",
         position: "right",
-        style: { background: "#0a0a0a", border: `1px solid ${color}`, borderRadius: "15px", color: color, fontWeight: "bold" }
+        style: { 
+            background: "#0a0a0a", 
+            border: `1px solid ${color}`, 
+            borderRadius: "15px", 
+            color: color, 
+            fontWeight: "bold",
+            boxShadow: `0 0 20px ${color}33`
+        }
     }).showToast();
 }
 
 function router(page) {
     document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
     const target = document.getElementById(`${page}-page`);
-    target.classList.remove('hidden');
-    target.classList.add('reveal');
+    if (target) {
+        target.classList.remove('hidden');
+        target.classList.add('reveal');
+    }
 }
 
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
@@ -31,18 +40,43 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     if (error) {
         notify("Acesso Negado: " + error.message, "#ef4444");
     } else {
-        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#06b6d4', '#8b5cf6'] });
-        document.getElementById('display-user').innerText = data.user.email.toUpperCase();
-        notify("Conectado com sucesso!");
-        setTimeout(() => {
-            router('dashboard');
-            loadUpdates();
-        }, 1000);
+        const user = data.user;
+        
+        const { data: profile } = await _supabase
+            .from('profiles')
+            .select('is_admin')
+            .eq('id', user.id)
+            .single();
+
+        confetti({ 
+            particleCount: 150, 
+            spread: 70, 
+            origin: { y: 0.6 }, 
+            colors: ['#06b6d4', '#8b5cf6'] 
+        });
+        
+        if (profile && profile.is_admin) {
+            notify("BEM-VINDO, ADMINISTRADOR", "#06b6d4");
+            setTimeout(() => {
+                window.location.href = "admin.html";
+            }, 1500);
+        } else {
+            document.getElementById('display-user').innerText = user.email.toUpperCase();
+            notify("Conectado com sucesso!");
+            setTimeout(() => {
+                router('dashboard');
+                loadUpdates();
+            }, 1000);
+        }
     }
 });
 
 async function loadUpdates() {
-    const { data } = await _supabase.from('updates').select('*').order('created_at', { ascending: false });
+    const { data, error } = await _supabase
+        .from('updates')
+        .select('*')
+        .order('created_at', { ascending: false });
+
     const container = document.getElementById('updatesContainer');
     
     if (data && data.length > 0) {
@@ -55,11 +89,34 @@ async function loadUpdates() {
                 <p class="text-gray-400 font-light leading-relaxed">${up.changelog}</p>
             </div>
         `).join('');
+    } else {
+        container.innerHTML = '<p class="text-gray-600 italic">Nenhum log de atualização disponível.</p>';
     }
 }
 
 async function logout() {
     await _supabase.auth.signOut();
     notify("Sessão Encerrada", "#8b5cf6");
-    setTimeout(() => location.reload(), 1000);
+    setTimeout(() => {
+        window.location.href = "index.html";
+    }, 1000);
 }
+
+_supabase.auth.onAuthStateChange(async (event, session) => {
+    if (session) {
+        const { data: profile } = await _supabase
+            .from('profiles')
+            .select('is_admin')
+            .eq('id', session.user.id)
+            .single();
+
+        if (profile && profile.is_admin && window.location.pathname.includes('index.html')) {
+            const adminBtn = document.createElement('button');
+            adminBtn.innerHTML = '<i data-lucide="shield-alert"></i> PAINEL ADMIN';
+            adminBtn.className = "fixed bottom-5 left-5 bg-red-600 text-white px-4 py-2 rounded-full text-xs font-black z-50 flex items-center gap-2 shadow-lg hover:bg-red-500 transition-all";
+            adminBtn.onclick = () => window.location.href = "admin.html";
+            document.body.appendChild(adminBtn);
+            lucide.createIcons();
+        }
+    }
+});

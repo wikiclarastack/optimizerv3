@@ -3,35 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fluxz | OS Performance</title>
-    <link rel="stylesheet" href="style.css">
+    <title>FLUXZ | OS Performance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #050505; color: white; overflow-x: hidden; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); }
+        .reveal { animation: reveal 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+        @keyframes reveal { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .hidden { display: none; }
+    </style>
 </head>
-<body class="bg-[#050505] text-white selection:bg-cyan-500/30">
+<body>
 
-    <nav class="fixed w-full z-50 p-6 glass-nav flex justify-between items-center border-b border-white/5">
+    <nav class="fixed w-full z-50 p-6 flex justify-between items-center border-b border-white/5 glass">
         <div class="text-2xl font-black italic tracking-tighter uppercase">FLUXZ<span class="text-cyan-500">.</span></div>
-        <button onclick="router('login')" class="bg-white/5 hover:bg-cyan-500 hover:text-black px-6 py-2 rounded-full border border-white/10 transition-all text-[10px] font-black uppercase tracking-[0.2em]">Restricted Access</button>
+        <button onclick="router('login')" class="bg-white/5 hover:bg-cyan-500 hover:text-black px-6 py-2 rounded-full border border-white/10 transition-all text-[10px] font-black uppercase tracking-widest">Acesso Restrito</button>
     </nav>
 
-    <section id="home-page" class="min-h-screen flex flex-col justify-center items-center text-center px-6 reveal">
-        <h1 class="text-7xl md:text-9xl font-black mb-6 tracking-tighter italic uppercase">Limitless <br><span class="text-cyan-500">Power.</span></h1>
-        <button onclick="router('login')" class="bg-white text-black px-12 py-5 rounded-2xl font-black text-xl hover:scale-105 transition-all">GET STARTED</button>
+    <section id="home-page" class="min-h-screen flex flex-col justify-center items-center text-center px-6">
+        <h1 class="text-7xl md:text-9xl font-black mb-6 tracking-tighter italic uppercase reveal">Limitless <br><span class="text-cyan-500">Power.</span></h1>
+        <button onclick="router('login')" class="bg-white text-black px-12 py-5 rounded-2xl font-black text-xl hover:scale-105 transition-all">ENTRAR NO SISTEMA</button>
     </section>
 
     <section id="login-page" class="min-h-screen flex items-center justify-center px-6 hidden">
         <div class="w-full max-w-md glass p-10 rounded-[40px] border border-white/10 shadow-2xl reveal">
-            <h2 class="text-3xl font-black mb-8 text-center italic uppercase tracking-tighter">Auth Center</h2>
+            <h2 class="text-3xl font-black mb-8 text-center italic uppercase">Identify</h2>
             <form id="loginForm" class="space-y-4">
-                <input type="email" id="email" placeholder="E-mail" class="w-full p-5 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-cyan-500 transition-all font-mono text-sm" required>
-                <input type="password" id="password" placeholder="Senha" class="w-full p-5 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-cyan-500 transition-all font-mono text-sm" required>
-                <button type="submit" class="w-full bg-cyan-500 text-black py-5 rounded-2xl font-black uppercase tracking-widest shadow-lg">Identify</button>
-                <button type="button" onclick="router('home')" class="w-full text-gray-600 text-[10px] hover:text-white mt-4 uppercase tracking-[0.3em]">Abort Mission</button>
+                <input type="email" id="email" placeholder="E-mail" class="w-full p-5 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-cyan-500 transition-all text-sm" required>
+                <input type="password" id="password" placeholder="Senha" class="w-full p-5 bg-white/5 border border-white/10 rounded-2xl outline-none focus:border-cyan-500 transition-all text-sm" required>
+                <button type="submit" class="w-full bg-cyan-500 text-black py-5 rounded-2xl font-black uppercase tracking-widest shadow-lg hover:bg-cyan-400 transition-all">Entrar</button>
+                <button type="button" onclick="router('home')" class="w-full text-gray-600 text-[10px] hover:text-white mt-4 uppercase tracking-widest">Voltar</button>
             </form>
         </div>
     </section>
@@ -39,35 +46,47 @@
     <section id="dashboard-page" class="min-h-screen p-6 pt-32 hidden">
         <div class="max-w-6xl mx-auto">
             
-            <div id="admin-master-panel" class="hidden mb-16 p-10 bg-red-600/5 border border-red-500/20 rounded-[40px] reveal relative">
-                <h2 class="text-2xl font-black text-red-500 mb-8 italic uppercase tracking-tighter">Root Control</h2>
+            <div id="admin-master-panel" class="hidden mb-16 p-10 bg-red-600/5 border border-red-500/20 rounded-[40px] reveal">
+                <h2 class="text-2xl font-black text-red-500 mb-8 italic uppercase">Root Control</h2>
                 
                 <div class="grid lg:grid-cols-2 gap-8">
                     <div class="p-6 bg-black/40 rounded-3xl border border-white/5">
-                        <h3 class="text-[10px] font-bold text-gray-500 uppercase mb-4 tracking-widest">Register New Client</h3>
+                        <h3 class="text-[10px] font-bold text-gray-500 uppercase mb-4 tracking-widest">Criar Conta Cliente</h3>
                         <form id="createClientForm" class="space-y-3">
-                            <input type="email" id="new-client-email" placeholder="Client Email" class="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-xs outline-none focus:border-cyan-500" required>
-                            <input type="text" id="new-client-password" placeholder="Password" class="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-xs outline-none focus:border-cyan-500" required>
-                            <button type="submit" class="w-full bg-cyan-600 py-3 rounded-xl font-black text-[10px] uppercase">Create Account</button>
+                            <input type="email" id="new-client-email" placeholder="Email do Cliente" class="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-xs outline-none focus:border-cyan-500" required>
+                            <input type="text" id="new-client-password" placeholder="Senha Temporária" class="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-xs outline-none focus:border-cyan-500" required>
+                            <button type="submit" class="w-full bg-cyan-600 py-3 rounded-xl font-black text-[10px] uppercase">Registrar</button>
                         </form>
                     </div>
 
                     <div class="p-6 bg-black/40 rounded-3xl border border-white/5">
-                        <h3 class="text-[10px] font-bold text-gray-500 uppercase mb-4 tracking-widest">System Control</h3>
-                        <input type="text" id="new-dl-link" placeholder="New .EXE URL" class="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-xs mb-3">
-                        <button onclick="updateDownloadLink()" class="w-full bg-white text-black py-3 rounded-xl font-black text-[10px] uppercase mb-4">Set Download</button>
-                        <form id="adminUpdateForm" class="space-y-2">
-                            <input type="text" id="version" placeholder="Version (ex: v2.5)" class="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-xs">
-                            <textarea id="changelog" placeholder="Notes..." class="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-xs resize-none"></textarea>
-                            <button type="submit" class="w-full bg-red-600 py-3 rounded-xl font-black text-[10px] uppercase">Post Update</button>
-                        </form>
+                        <h3 class="text-[10px] font-bold text-gray-500 uppercase mb-4 tracking-widest">Gerador de Keys (Python)</h3>
+                        <div class="space-y-3">
+                            <input type="text" id="new-key-input" placeholder="Ex: PRO-777-XYZ" class="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-xs outline-none focus:border-cyan-500">
+                            <button onclick="generateKey()" class="w-full bg-green-600 py-3 rounded-xl font-black text-[10px] uppercase">Gerar Chave de Acesso</button>
+                        </div>
+                    </div>
+
+                    <div class="p-6 bg-black/40 rounded-3xl border border-white/5 lg:col-span-2">
+                        <h3 class="text-[10px] font-bold text-gray-500 uppercase mb-4 tracking-widest">Configurações de Download & Updates</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <input type="text" id="new-dl-link" placeholder="Nova URL do .EXE" class="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-xs mb-3">
+                                <button onclick="updateDownloadLink()" class="w-full bg-white text-black py-3 rounded-xl font-black text-[10px] uppercase">Atualizar Link</button>
+                            </div>
+                            <form id="adminUpdateForm" class="space-y-2">
+                                <input type="text" id="version" placeholder="Versão" class="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-xs">
+                                <textarea id="changelog" placeholder="Notas da atualização..." class="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-xs h-20 resize-none"></textarea>
+                                <button type="submit" class="w-full bg-red-600 py-3 rounded-xl font-black text-[10px] uppercase">Postar Update</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <header class="flex justify-between items-end mb-16">
                 <div>
-                    <h2 class="text-5xl font-black italic tracking-tighter uppercase">Panel</h2>
+                    <h2 class="text-5xl font-black italic uppercase">Painel</h2>
                     <p class="text-cyan-500 font-mono text-[10px] mt-2 uppercase" id="display-user"></p>
                 </div>
                 <button onclick="logout()" class="p-4 bg-red-500/10 text-red-500 rounded-2xl border border-red-500/10 hover:bg-red-500 hover:text-white transition-all"><i data-lucide="power"></i></button>
@@ -75,19 +94,19 @@
 
             <div class="grid lg:grid-cols-3 gap-10">
                 <div class="lg:col-span-2 space-y-10">
-                    <div class="bg-[#080808] p-10 rounded-[38px] border border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div class="bg-white/5 p-10 rounded-[38px] border border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
                         <div>
-                            <h3 class="text-3xl font-black italic tracking-tighter mb-1 uppercase">Fluxz Pro Engine</h3>
-                            <p class="text-gray-500 text-[10px] font-bold uppercase">Ready for optimization</p>
+                            <h3 class="text-3xl font-black italic mb-1 uppercase">Fluxz Pro Engine</h3>
+                            <p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest">Download da versão mais recente</p>
                         </div>
-                        <a id="main-download-btn" href="#" class="bg-white text-black px-12 py-5 rounded-2xl font-black hover:bg-cyan-400 transition-all uppercase italic">Download</a>
+                        <a id="main-download-btn" href="#" class="bg-white text-black px-12 py-5 rounded-2xl font-black hover:bg-cyan-500 transition-all uppercase italic">Download</a>
                     </div>
                     <div id="updatesContainer" class="p-10 glass rounded-[40px] border border-white/5 space-y-6"></div>
                 </div>
                 
-                <div class="glass p-8 rounded-[40px] border border-white/5 h-fit">
-                    <h4 class="text-[10px] font-black text-gray-500 uppercase mb-6">Online Now</h4>
-                    <div id="online-list" class="space-y-2 text-[10px] font-mono text-cyan-400"></div>
+                <div class="glass p-8 rounded-[40px] border border-white/5 h-fit text-center">
+                    <h4 class="text-[10px] font-black text-gray-500 uppercase mb-6 tracking-widest">Créditos</h4>
+                    <a href="https://silva777onlyportfolio.vercel.app" target="_blank" class="text-cyan-500 hover:text-white transition-colors font-bold text-sm underline">silva777onlyportfolio.vercel.app</a>
                 </div>
             </div>
         </div>
